@@ -6,7 +6,9 @@ Git review of your diffs, like a movie.
   <img src="docs/assets/demo.gif" alt="torvax demo" style="max-width: 100%; width: 800px;" />
 </p>
 
-Replays your git history as a typing animation with AI voiceover that explains what changed and why. Every commit becomes a narrated code walkthrough.
+As AI writes more of our software, most developers no longer have the time to read every line of code it produces. Torvax is the fastest, most intuitive way to understand a codebase and its development flow without painstakingly digging through files and diffs.
+
+Torvax replays Git history as a typing animation with an AI voiceover that explains what changed and why. Every commit becomes a narrated code walkthrough.
 
 ## Get API Keys
 
