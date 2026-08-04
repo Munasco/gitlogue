@@ -510,12 +510,10 @@ impl AnimationEngine {
                 self.record_checkpoint(CheckpointKind::Change);
                 self.record_checkpoint(CheckpointKind::Line);
             }
-            AnimationStep::Pause { multiplier } => {
-                if self.active_pane == ActivePane::Editor {
-                    self.record_checkpoint(CheckpointKind::Line);
-                    if Self::is_change_pause(*multiplier) {
-                        self.record_checkpoint(CheckpointKind::Change);
-                    }
+            AnimationStep::Pause { multiplier } if self.active_pane == ActivePane::Editor => {
+                self.record_checkpoint(CheckpointKind::Line);
+                if Self::is_change_pause(*multiplier) {
+                    self.record_checkpoint(CheckpointKind::Change);
                 }
             }
             _ => {}
@@ -1779,10 +1777,10 @@ mod tests {
         for step in &engine.steps {
             match step {
                 AnimationStep::SwitchFile { path, .. } => current_file = Some(path.clone()),
-                AnimationStep::StartAudio { .. } | AnimationStep::WaitForAudio { .. } => {
-                    if current_file.as_deref() == Some("src/no-audio.rs") {
-                        no_audio_file_step_count += 1;
-                    }
+                AnimationStep::StartAudio { .. } | AnimationStep::WaitForAudio { .. }
+                    if current_file.as_deref() == Some("src/no-audio.rs") =>
+                {
+                    no_audio_file_step_count += 1;
                 }
                 _ => {}
             }

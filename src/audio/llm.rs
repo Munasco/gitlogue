@@ -84,7 +84,7 @@ pub async fn generate_project_context_with_llm(config: &VoiceoverConfig) -> Resu
                 .content(prompt)
                 .build()?,
         )])
-        .temperature(0.5)
+        .temperature(0.5_f32)
         .max_completion_tokens(2048u32)
         .build()?;
 
@@ -203,7 +203,7 @@ pub async fn order_files_by_development_flow(
         - UI/presentation last\n- New files before modifications\n- Dependencies before dependents\n\n\
         Respond with ONLY a JSON array of the file indices. Example: [2, 0, 3, 1]",
         project_context.repo_name,
-        &project_context.description.chars().take(200).collect::<String>(),
+        project_context.description.chars().take(200).collect::<String>(),
         commit_message,
         file_list.join("\n")
     );
@@ -221,7 +221,7 @@ pub async fn order_files_by_development_flow(
                 Err(_) => return files.to_vec(),
             },
         )])
-        .temperature(0.2)
+        .temperature(0.2_f32)
         .max_completion_tokens(128u32)
         .build()
     {

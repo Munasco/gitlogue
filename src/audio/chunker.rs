@@ -91,7 +91,7 @@ pub async fn split_diff_into_chunks(
                     .content(prompt)
                     .build()?,
             )])
-            .temperature(0.7)
+            .temperature(0.7_f32)
             .max_completion_tokens((target_words * 2).max(200) as u32)
             .build()?;
 
@@ -199,7 +199,7 @@ async fn llm_group_hunks(
         (e.g. imports, a new function, config updates). Keep related hunks together.\n\n\
         Respond with ONLY JSON: {{\"chunks\": [[0, 1], [2], [3, 4]]}}",
         project_context.repo_name,
-        &project_context
+        project_context
             .description
             .chars()
             .take(300)
@@ -218,7 +218,7 @@ async fn llm_group_hunks(
                 .content(prompt)
                 .build()?,
         )])
-        .temperature(0.3)
+        .temperature(0.3_f32)
         .max_completion_tokens(256u32)
         .build()?;
 
